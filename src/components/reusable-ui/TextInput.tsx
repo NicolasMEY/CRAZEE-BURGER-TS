@@ -1,12 +1,22 @@
-import React from "react"
 import styled, { css } from "styled-components"
 import { theme } from "../../theme"
+import React, { ChangeEventHandler, ForwardedRef } from "react";
+
+type TextInputPropsType = {
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  Icon:  React.ElementType;
+  className: string;
+  version : "normal" | "minimalist" ;
+}
 
 const TextInput = React.forwardRef(
-  ({ onChange, Icon, className, version = "normal", ...extraProps }, ref) => {
+  ({ onChange, Icon, className, version = "normal", ...extraProps } : TextInputPropsType, ref: ForwardedRef<HTMLInputElement>) => {
     return (
       <TextInputStyled className={className} version={version}>
-        <div className="icon">{Icon && Icon}</div>
+        {/* Vérification que Icon est bien une fonction avant de l'utiliser */}
+          {typeof Icon === 'function' &&
+        <div className="icon"><Icon /></div>}
+        {/* {Icon && Icon} */}
         <input ref={ref} onChange={onChange} type="text" {...extraProps} />
       </TextInputStyled>
     )
@@ -14,7 +24,7 @@ const TextInput = React.forwardRef(
 )
 
 export default TextInput
-const TextInputStyled = styled.div`
+const TextInputStyled = styled.div<{ version: "normal" | "minimalist" }>`
   border-radius: ${theme.borderRadius.round};
   display: flex;
   align-items: center;
@@ -76,3 +86,4 @@ const extraStyle = {
   normal: extraStyleNormal,
   minimalist: extraStyleMinimalist,
 }
+
