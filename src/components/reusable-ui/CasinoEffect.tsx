@@ -1,8 +1,8 @@
-import React from "react"
 import { TransitionGroup, CSSTransition } from "react-transition-group"
+// Installation de : yarn add --dev @types/react-transition-group
 import styled from "styled-components"
 
-export default function CasinoEffect({ count, className }) {
+export default function CasinoEffect({ count, className } : {count: number, className: string}) {
   return (
     <TransitionGroup
       component={CasinoEffectStyled}
@@ -46,3 +46,4 @@ const CasinoEffectStyled = styled.div`
     transition: 300ms;
   }
 `
+

@@ -1,16 +1,29 @@
 import styled, { css } from "styled-components"
 import { theme } from "../../theme"
 
-export default function Button({ label, Icon, className, version = "normal", onClick, disabled }) {
+type ButtonPropsType = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  Icon?:  React.ElementType;
+  className: string;
+  label: string ;
+  version?: "normal" | "success" ;
+  disabled : boolean | undefined;
+}
+
+export default function Button({ label, Icon, className, version = "normal", onClick, disabled } : ButtonPropsType) {
   return (
     <ButtonStyled className={className} version={version} onClick={onClick} disabled={disabled}>
       <span>{label}</span>
-      <div className="icon">{Icon && Icon}</div>
+      {Icon && ( // Vérifie si Icon existe avant de le rendre pour éviter undefined
+        <div className="icon">
+          <Icon />
+        </div>
+      )}
     </ButtonStyled>
   )
 }
 
-const ButtonStyled = styled.button`
+const ButtonStyled = styled.button<{ version: "normal" | "success" }>`
   ${({ version }) => extraStyle[version]};
 `
 

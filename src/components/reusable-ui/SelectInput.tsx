@@ -1,6 +1,17 @@
-import React from "react"
 import styled from "styled-components"
 import { theme } from "../../theme"
+
+type SelectInputPropsType = {
+  onClick: React.MouseEventHandler<HTMLSelectElement>;
+  // La balise qui contient onClick est une select
+  Icon:  React.ElementType;
+  className: string;
+  label: string ;
+  value: string | number | readonly string[] | undefined;
+  name: string;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  options: { optionValue: string; label: string; selected?: boolean }[];
+}
 
 export default function SelectInput({
   options,
@@ -10,10 +21,10 @@ export default function SelectInput({
   className,
   onChange,
   ...restProps
-}) {
+} :SelectInputPropsType) {
   return (
     <SelectInputStyled className={className}>
-      {Icon && <div className="icon">{Icon}</div>}
+      {Icon && <div className="icon"><Icon/></div>}
       <select name={name} value={value} onChange={onChange} {...restProps}>
         {options.map(({ optionValue, label }) => (
           <option key={label} value={optionValue}>
@@ -35,7 +46,7 @@ const SelectInputStyled = styled.div`
 
   .icon {
     /* border: 1px solid red; */
-    font-size: ${theme.fonts.P1};
+    font-size: ${theme.fonts.size.P1};
     margin-right: 13px;
     color: ${theme.colors.greyBlue};
     display: flex; // centre verticalement l'icône dans le champ select
@@ -59,3 +70,4 @@ const SelectInputStyled = styled.div`
 //   { optionValue: "", label: "", selected: true },
 //   { optionValue: "", label: "", selected: false },
 // ]
+
