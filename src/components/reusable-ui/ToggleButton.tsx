@@ -1,13 +1,19 @@
-import React from "react"
 import styled from "styled-components"
 import { theme } from "../../theme"
+
+type ToggleButtonPropsType = {
+  isChecked: boolean;
+  onToggle: () => void;
+  labelIfChecked: string;
+  labelIfUnchecked: string;
+}
 
 export default function ToggleButton({
   isChecked,
   onToggle,
   labelIfChecked = "Fermer",
   labelIfUnchecked = "Ouvrir",
-}) {
+}: ToggleButtonPropsType) {
   return (
     <ToggleButtonStyled>
       <input
