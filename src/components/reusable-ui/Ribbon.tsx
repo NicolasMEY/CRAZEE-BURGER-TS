@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { theme } from "../../theme"
 
-export default function Ribbon({ label = "new", className }) {
+export default function Ribbon({ label = "new", className } : {label: string; className: string}) {
   return (
     <RibbonStyled className={className}>
       <div className="ribbon ribbon-top-left">
@@ -153,3 +153,4 @@ const RibbonStyled = styled.div`
     transform: rotate(-225deg);
   }
 `
+
