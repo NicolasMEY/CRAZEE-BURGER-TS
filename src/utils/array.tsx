@@ -1,20 +1,28 @@
-export const deepClone = (array) => {
+// T = type générique
+// <> = fonction TS
+// la <,> est utilisé dans un fichier tsx et non pas ts
+
+export const deepClone = <T,>(array: T[]): T[]=> {
   return JSON.parse(JSON.stringify(array))
 }
 
-export const findObjectById = (id, array) => {
+type ID = string | number
+
+// extends : impose une contrainte sur le type T, hériter des propriétés de l'objet {}
+export const findObjectById = <T extends {id: ID},>(id: ID, array: T[]): T | undefined => {
   return array.find((itemInArray) => itemInArray.id === id)
 }
 
-export const findIndexById = (idWithUnknowwIndex, array) => {
+
+export const findIndexById = <T extends {id: ID},>(idWithUnknowwIndex: ID, array: T[]): number => {
   return array.findIndex((itemInArray) => itemInArray.id === idWithUnknowwIndex)
 }
 
-export const removeObjectById = (idOfItemToRemove, array) => {
+export const removeObjectById = <T extends {id: ID},>(idOfItemToRemove: ID, array: T[]): T[] => {
   return array.filter((item) => item.id !== idOfItemToRemove)
 }
 
-export const isEmpty = (array) => {
+export const isEmpty = (array: []): boolean => {
   return array.length === 0
 }
 
@@ -28,3 +36,4 @@ export const isEmpty = (array) => {
 // console.log("fruits: ", fruits)
 // //console.log("fruitsShallowCopy: ", fruitsShallowCopy)
 // console.log("fruitsDeepCopy: ", fruitsDeepCopy)
+
